@@ -27,14 +27,23 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset('assets/logo.png', width: 150, height: 150),
-                    const SizedBox(height: 64),
+                    const SizedBox(height: 32),
+                    const Text(
+                      "Iniciar sesión",
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 32),
                     TextFormField(
                       decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          isDense: true,
-                          hintText: "tu@correo.com",
-                          label: Text("Correo electrónico"),
-                          prefixIcon: Icon(Icons.email_outlined)),
+                        border: OutlineInputBorder(),
+                        isDense: true,
+                        hintText: "tu@correo.com",
+                        label: Text("Correo electrónico"),
+                        prefixIcon: Icon(Icons.email_outlined),
+                      ),
                       keyboardType: TextInputType.emailAddress,
                       controller: _email,
                     ),
@@ -47,7 +56,8 @@ class _LoginState extends State<Login> {
                         label: const Text("Contraseña"),
                         prefixIcon: const Icon(Icons.lock_open),
                         suffixIcon: IconButton(
-                          onPressed: () => setState(() => _isObscure = !_isObscure),
+                          onPressed: () =>
+                              setState(() => _isObscure = !_isObscure),
                           icon: Icon(
                             _isObscure
                                 ? Icons.visibility_off_outlined
@@ -70,10 +80,11 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/forgot-password');
-                        },
-                        child: const Text("Recuperar contraseña")),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/forgot-password');
+                      },
+                      child: const Text("Recuperar contraseña"),
+                    ),
                   ],
                 ),
               ),

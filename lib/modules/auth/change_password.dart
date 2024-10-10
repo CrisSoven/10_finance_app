@@ -28,7 +28,15 @@ class _ChangePasswordState extends State<ChangePassword> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset('assets/logo.png', width: 150, height: 150),
-                    const SizedBox(height: 64),
+                    const SizedBox(height: 32),
+                    const Text(
+                      "Cambiar contraseña ",
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 32),
                     TextFormField(
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),

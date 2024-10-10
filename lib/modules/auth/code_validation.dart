@@ -25,7 +25,15 @@ class _CodeValidationState extends State<CodeValidation> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset('assets/logo.png', width: 150, height: 150),
-                    const SizedBox(height: 64),
+                    const SizedBox(height: 32),
+                    const Text(
+                      "Validar código",
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 32),
                     TextFormField(
                       decoration: const InputDecoration(
                           border: OutlineInputBorder(),
@@ -38,7 +46,7 @@ class _CodeValidationState extends State<CodeValidation> {
                       controller: _code,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "El código es requerido";
+                          return "El código de verificación es requerido";
                         }
                         return null;
                       },

@@ -25,7 +25,15 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset('assets/logo.png', width: 150, height: 150),
-                    const SizedBox(height: 64),
+                    const SizedBox(height: 32),
+                    const Text(
+                      "Recuperar contraseña",
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 32),
                     TextFormField(
                       decoration: const InputDecoration(
                           border: OutlineInputBorder(),
