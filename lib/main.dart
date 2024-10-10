@@ -2,6 +2,7 @@
 import 'package:finances_app/modules/auth/code_validation.dart';
 import 'package:finances_app/modules/auth/forgot_password.dart';
 import 'package:finances_app/modules/auth/login.dart';
+import 'package:finances_app/widgets/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,8 +16,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/login',
+      initialRoute: '/',
       routes: {
+        '/': (context) => const SplashScreen(),
         '/login': (context) => const Login(),
         '/forgot-password': (context) => const ForgotPassword(),
         '/code-validation': (context) => const CodeValidation(),
