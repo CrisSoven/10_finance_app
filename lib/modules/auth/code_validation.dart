@@ -27,7 +27,7 @@ class _CodeValidationState extends State<CodeValidation> {
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         isDense: true,
-                        hintText: "123456",
+                        hintText: "000000",
                         label: Text("Código de verificación"),
                         prefixIcon: Icon(Icons.email_outlined)),
                     keyboardType: TextInputType.number,
@@ -37,11 +37,12 @@ class _CodeValidationState extends State<CodeValidation> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () =>
+                          Navigator.pushNamed(context, '/change-password'),
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black,
                           foregroundColor: Colors.white),
-                      child: const Text("Enviar código"),
+                      child: const Text("Validar código"),
                     ),
                   ),
                 ],

@@ -35,7 +35,7 @@ class _LoginState extends State<Login> {
                     keyboardType: TextInputType.emailAddress,
                     controller: _email,
                   ),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 32.0),
                   TextFormField(
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
