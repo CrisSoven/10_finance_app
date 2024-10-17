@@ -143,13 +143,10 @@ class _RegisterState extends State<Register> {
   void _register() async {
     if (_formKey.currentState!.validate()) {
       try {
-        final credential =
-            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _email.text,
           password: _pass.text,
         );
-
-        print(credential);
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           print('No user found for that email.');
