@@ -1,24 +1,27 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class ChangePassword extends StatefulWidget {
-  const ChangePassword({super.key});
+class Register extends StatefulWidget {
+  const Register({super.key});
 
   @override
-  State<ChangePassword> createState() => _ChangePasswordState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _ChangePasswordState extends State<ChangePassword> {
+class _RegisterState extends State<Register> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _password = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _pass = TextEditingController();
   final TextEditingController _newPass = TextEditingController();
-  bool _isOscurePassword = true;
-  bool _isOscureNewPass = true;
+
+  bool _isObscure = true;
+  bool _isObscureNewPass = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cambiar contraseña'),
+        title: const Text('Registro'),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -33,13 +36,31 @@ class _ChangePasswordState extends State<ChangePassword> {
                     Image.asset('assets/logo.png', width: 150, height: 150),
                     const SizedBox(height: 32),
                     const Text(
-                      "Cambiar contraseña ",
+                      "Registrarse",
                       style: TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 32),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        isDense: true,
+                        hintText: "tu@correo.com",
+                        label: Text("Correo electrónico"),
+                        prefixIcon: Icon(Icons.email_outlined),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _email,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "El correo es requerido";
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 32.0),
                     TextFormField(
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
@@ -48,17 +69,17 @@ class _ChangePasswordState extends State<ChangePassword> {
                         label: const Text("Contraseña"),
                         prefixIcon: const Icon(Icons.lock_open),
                         suffixIcon: IconButton(
-                          onPressed: () => setState(
-                              () => _isOscurePassword = !_isOscurePassword),
+                          onPressed: () =>
+                              setState(() => _isObscure = !_isObscure),
                           icon: Icon(
-                            _isOscurePassword
+                            _isObscure
                                 ? Icons.visibility_off_outlined
                                 : Icons.visibility_outlined,
                           ),
                         ),
                       ),
-                      obscureText: _isOscurePassword,
-                      controller: _password,
+                      obscureText: _isObscure,
+                      controller: _pass,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "La contraseña es requerida";
@@ -76,22 +97,22 @@ class _ChangePasswordState extends State<ChangePassword> {
                         prefixIcon: const Icon(Icons.lock_open),
                         suffixIcon: IconButton(
                           onPressed: () => setState(
-                              () => _isOscureNewPass = !_isOscureNewPass),
+                              () => _isObscureNewPass = !_isObscureNewPass),
                           icon: Icon(
-                            _isOscureNewPass
+                            _isObscureNewPass
                                 ? Icons.visibility_off_outlined
                                 : Icons.visibility_outlined,
                           ),
                         ),
                       ),
-                      obscureText: _isOscureNewPass,
+                      obscureText: _isObscureNewPass,
                       controller: _newPass,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "La contraseña es requerida";
                         }
 
-                        if (value != _password.text) {
+                        if (value != _pass.text) {
                           return "Las contraseñas no coinciden";
                         }
 
@@ -102,11 +123,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () => _validateForm(),
+                        onPressed: () => _register(),
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,
                             foregroundColor: Colors.white),
-                        child: const Text("Guardar"),
+                        child: const Text("Registrarse"),
                       ),
                     ),
                   ],
@@ -119,9 +140,23 @@ class _ChangePasswordState extends State<ChangePassword> {
     );
   }
 
-  void _validateForm() {
+  void _register() async {
     if (_formKey.currentState!.validate()) {
-      Navigator.pushNamed(context, '/login');
+      try {
+        final credential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _email.text,
+          password: _pass.text,
+        );
+
+        print(credential);
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found') {
+          print('No user found for that email.');
+        } else if (e.code == 'wrong-password') {
+          print('Wrong password provided for that user.');
+        }
+      }
     }
   }
 }

@@ -14,6 +14,9 @@ class _CodeValidationState extends State<CodeValidation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Validar código'),
+      ),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(

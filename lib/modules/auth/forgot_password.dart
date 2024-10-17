@@ -14,6 +14,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Recuperar contraseña'),
+      ),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
